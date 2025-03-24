@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Info</title>
+</head>
+<body>
+    <h1>Mobile Information</h1>
+    
+    <!-- Button to show mobile information -->
+    <button onclick="show_mobile_info()">Show Mobile Info</button>
+    
+    <!-- Div to display the mobile's details -->
+    <div id="demo_div"></div>
+    <div id="mobile_div"></div>
+    
+    <!-- Input fields to allow the user to input mobile info -->
+    <div>
+        <label for="make">Make:</label>
+        <input id="make" placeholder="Enter make" />
+    </div>
+    <div>
+        <label for="model">Model:</label>
+        <input id="model" placeholder="Enter model" />
+    </div>
+    <div>
+        <label for="year">Year:</label>
+        <input id="year" placeholder="Enter year" />
+    </div>
+    <div>
+        <label for="color">Color:</label>
+        <input id="color" placeholder="Enter color" />
+    </div>
+
+    <!-- Script with mobile info update functionality -->
+    <script>
+        // Initial mobile object with default values
+        const mobile = {
+            make: "apple",
+            model: "16 pro",
+            year: "2024",
+            color: "black",
+            description: function() {
+                return "This is a " + this.year + " " + this.make + " " + this.model + " in " + this.color + " color.";
+            }
+        };
+
+        // Function to update mobile information based on user input
+        function update_mobile_info() {
+            let make = document.getElementById("make").value;
+            let model = document.getElementById("model").value;
+            let year = document.getElementById("year").value;
+            let color = document.getElementById("color").value;
+
+            // Only update the properties if the user has entered new values
+            if (make) mobile.make = make;
+            if (model) mobile.model = model;
+            if (year) mobile.year = year;
+            if (color) mobile.color = color;
+
+            // Display the updated mobile info in the mobile_div
+            document.getElementById("mobile_div").innerHTML = `
+                <strong>Make:</strong> ${mobile.make} <br>
+                <strong>Model:</strong> ${mobile.model} <br>
+                <strong>Year:</strong> ${mobile.year} <br>
+                <strong>Color:</strong> ${mobile.color}
+            `;
+
+            // Display the full description of the mobile in the demo_div
+            document.getElementById("demo_div").innerHTML = mobile.description();
+
+            // Optional: Alert to confirm update
+            alert("Mobile Info Updated!");
+        }
+
+        // Function to handle "Show Mobile Info" button click
+        function show_mobile_info() {
+            update_mobile_info();  // Call the update function when this button is clicked
+        }
+    </script>
+</body>
+</html>

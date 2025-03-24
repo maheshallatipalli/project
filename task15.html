@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Manufacturing Year Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        input, button {
+            padding: 8px;
+            font-size: 14px;
+            width: 250px;
+            margin: 5px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #carAgeResult {
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Car Manufacturing Year Calculator</h1>
+
+    <label for="carAgeInput">Enter the car's current age (in years): </label>
+    <input type="number" id="carAgeInput" placeholder="Enter car age in years" min="1">
+
+    <button onclick="calculateManufacturingYear()">Calculate Manufacturing Year</button>
+
+    <p id="carAgeResult"></p>
+
+    <script>
+        function calculateManufacturingYear() {
+            var carAge = document.getElementById('carAgeInput').value;
+
+            if (carAge === '' || isNaN(carAge) || carAge <= 0) {
+                alert('Please enter a valid age!');
+                return;
+            }
+
+            const date = new Date();
+            const currentYear = date.getFullYear();
+
+            const manufacturingYear = currentYear - carAge;
+
+            document.getElementById('carAgeResult').textContent = `The car was manufactured in the year ${manufacturingYear}.`;
+        }
+    </script>
+
+</body>
+</html>

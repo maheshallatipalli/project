@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive HTML File Gallery</title>
+    <style>
+        /* General page styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ecf0f1;  /* Default background color */
+            margin: 0;
+            padding: 0;
+            color: #333;
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 3rem;
+            color: #2c3e50;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Gallery container */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+            gap: 30px;
+            justify-content: center;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Each gallery item card */
+        .gallery-item {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, rgba(52, 152, 219, 1), rgba(26, 188, 156, 1)); /* Default color gradient */
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            height: 150px;
+            overflow: hidden;
+            transform: scale(1);
+        }
+
+        /* Gallery item hover effects */
+        .gallery-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            opacity: 0.9;
+        }
+
+        .gallery-item a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .file-name {
+            position: absolute;
+            bottom: 20px;
+            font-size: 18px;
+            color: #ecf0f1;
+            font-weight: 600;
+        }
+
+        /* Colorful Backgrounds for each task */
+        .task-1 { background: linear-gradient(45deg, #e74c3c, #c0392b); }
+        .task-2 { background: linear-gradient(45deg, #f39c12, #e67e22); }
+        .task-3 { background: linear-gradient(45deg, #2ecc71, #27ae60); }
+        .task-4 { background: linear-gradient(45deg, #1abc9c, #16a085); }
+        .task-5 { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
+        .task-6 { background: linear-gradient(45deg, #34495e, #2c3e50); }
+        .task-7 { background: linear-gradient(45deg, #16a085, #1abc9c); }
+        .task-8 { background: linear-gradient(45deg, #d35400, #e67e22); }
+        .task-9 { background: linear-gradient(45deg, #2980b9, #3498db); }
+        .task-10 { background: linear-gradient(45deg, #8e44ad, #9b59b6); }
+        .task-11 { background: linear-gradient(45deg, #f1c40f, #f39c12); }
+        .task-12 { background: linear-gradient(45deg, #e67e22, #f39c12); }
+        .task-13 { background: linear-gradient(45deg, #f39c12, #f1c40f); }
+        .task-14 { background: linear-gradient(45deg, #2ecc71, #27ae60); }
+        .task-15 { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
+        .task-16 { background: linear-gradient(45deg, #16a085, #1abc9c); }
+
+        /* Iframe display area */
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            margin-top: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        iframe.active {
+            opacity: 1;
+        }
+
+        /* Footer for a clean finish */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Interactive HTML File Gallery</h1>
+    
+    <!-- Gallery of Files -->
+    <div id="gallery" class="gallery"></div>
+
+    <!-- Iframe to display selected HTML content -->
+    <div id="file-viewer">
+        <iframe id="file-iframe" class="iframe" src="" style="display:none;"></iframe>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Interactive File Gallery | Designed by Mahesh Reddy Allatipalli</p>
+    </footer>
+
+    <script>
+        // JSON object simulating the list of HTML files with paths
+        const filesData = {
+            "gallery": []
+        };
+
+        // Dynamically generate files for Task 1 to Task 16
+        for (let i = 1; i <= 16; i++) {
+            filesData.gallery.push({
+                "name": `task${i}.html`,
+                "path": `file:///C:/Users/User/Desktop/project/task${i}.html`,  // Absolute file path
+                "taskNumber": `Task ${i}`,
+                "color": getTaskColor(i) // Assigning a color based on the task number
+            });
+        }
+
+        // Function to return color based on task number
+        function getTaskColor(taskNumber) {
+            switch (taskNumber) {
+                case 1: return "#e74c3c"; // Task 1 color
+                case 2: return "#f39c12"; // Task 2 color
+                case 3: return "#2ecc71"; // Task 3 color
+                case 4: return "#1abc9c"; // Task 4 color
+                case 5: return "#9b59b6"; // Task 5 color
+                case 6: return "#34495e"; // Task 6 color
+                case 7: return "#16a085"; // Task 7 color
+                case 8: return "#d35400"; // Task 8 color
+                case 9: return "#2980b9"; // Task 9 color
+                case 10: return "#8e44ad"; // Task 10 color
+                case 11: return "#f1c40f"; // Task 11 color
+                case 12: return "#e67e22"; // Task 12 color
+                case 13: return "#f39c12"; // Task 13 color
+                case 14: return "#2ecc71"; // Task 14 color
+                case 15: return "#9b59b6"; // Task 15 color
+                case 16: return "#16a085"; // Task 16 color
+                default: return "#ecf0f1"; // Default color
+            }
+        }
+
+        // Function to generate the gallery
+        function generateGallery() {
+            const galleryDiv = document.getElementById('gallery');
+            filesData.gallery.forEach((file, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.classList.add('gallery-item');
+                
+                // Assign color class based on task number
+                galleryItem.classList.add(`task-${index + 1}`);
+
+                const itemLink = document.createElement('a');
+                itemLink.href = "#";  // Prevent default link behavior
+                itemLink.setAttribute('data-file', file.path);  // Store file path in data attribute
+                itemLink.setAttribute('data-color', file.color);  // Store color in data attribute
+                
+                const fileName = document.createElement('p');
+                fileName.classList.add('file-name');
+                fileName.textContent = file.taskNumber;  // Display task number inside box
+
+                // Add event listener to load file when clicked
+                itemLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loadFile(file.path, file.color);
+                });
+
+                galleryItem.appendChild(itemLink);
+                itemLink.appendChild(fileName);
+                galleryDiv.appendChild(galleryItem);
+            });
+        }
+
+        // Function to load the HTML file content in the iframe and change background color
+        function loadFile(filePath, color) {
+            const iframe = document.getElementById('file-iframe');
+            iframe.style.display = "block";  // Show the iframe
+            iframe.src = filePath;  // Set the iframe source to the selected file
+
+            // Change the background color dynamically
+            document.body.style.backgroundColor = color;
+
+            // Adding a delay for fade-in effect
+            setTimeout(() => {
+                iframe.classList.add('active');
+            }, 100);
+        }
+
+        // Generate the gallery when the page loads
+        generateGallery();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        
+<script>
+    function update(){
+        let x=document.getElementById("input_field");
+        let y = document.getElementById("output_field");
+        y.value=x.value.toUpperCase();
+    }
+</script>
+    </head>
+    <body>
+        <input id="input_field" placeholder="Input text" onkeyup="update();" />
+        <input id="output_field" placeholder="Output text" disabled />
+
+    </body>
+</html>

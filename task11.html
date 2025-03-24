@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <input id="user_input" placeholder="Enter size" onkeyup="generate_shape();">
+    <div id="content_div"></div>
+    <script>
+        let colors = ["red", "blue", "green", "orange"];
+        let idx = 0;
+        let size = colors.length;
+
+        function generate_shape() {
+            let n = parseInt(document.getElementById("user_input").value);
+            let text = "";
+            let i = 1;
+
+            // Using a while loop to generate the pattern
+            while (i <= n) {
+                let j = 1;
+                while (j <= i) {
+                    text += "*";
+                    j++;
+                }
+                text += "<br>"; // Add line break after each row
+                i++;
+            }
+
+            // Update content and color
+            document.getElementById("content_div").innerHTML = text;
+            document.getElementById("content_div").style.color = colors[idx];
+
+            // Cycle through colors
+            idx = (idx + 1) % size;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Implementation</title>
+    <script >
+    
+
+class Stack {
+constructor() {
+this.items = [];
+}
+push(element) {
+this.items.push(element);
+this.displayStack();
+}
+pop() {
+if (this.isEmpty()) {
+alert("Stack is empty");
+return;
+}
+this.items.pop();
+this.displayStack();
+}
+isEmpty() {
+return this.items.length === 0;
+}
+displayStack() {
+const stackContainer = document.getElementById("stack");
+stackContainer.innerHTML = "";
+for (const item of this.items) {
+const div = document.createElement("div");
+div.textContent = item;
+stackContainer.appendChild(div);
+}
+}
+}
+const stack = new Stack();
+function pushToStack() {
+const inputElement = document.getElementById("inputElement");
+const value = inputElement.value;
+if (value) {
+stack.push(value);
+inputElement.value = "";
+}
+}
+function popFromStack() {
+stack.pop();
+}
+
+    </script>
+</head>
+<body>
+    <h1>Stack Implementation</h1>
+    <input type="text" id="inputElement" placeholder="Enter the task name">
+    <button onclick="pushToStack()">Add Task</button>
+    <button onclick="popFromStack()">Undo Task</button>
+     <br><br>
+    Process line: <br> 
+    <span id="stack"></span>
+</body>
+</html>
